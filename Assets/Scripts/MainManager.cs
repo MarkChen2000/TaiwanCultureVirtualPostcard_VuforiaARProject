@@ -18,10 +18,13 @@ public class MainManager : Singleton<MainManager>
     VuforiaBehaviour vuforiaBehaviour;
 
     [SerializeField]
-    MyTargetImagePrefabBaseController baseCardTargetController; 
+    MyTargetImagePrefabBaseController baseCardTargetController;
 
-    /*[SerializeField]
-    List<GameObject> registeredTargetImageList = new List<GameObject>();*/
+    [SerializeField]
+    Transform PostcardBaseTransform; // 基地整體的Transform
+
+    [SerializeField]
+    GameObject buttonsAdjustBaseSizeObj, videoDisplayImageObj;
 
     [SerializeField]
     GameState currentGameState = GameState.Initialization;
@@ -41,7 +44,7 @@ public class MainManager : Singleton<MainManager>
 
     private void Start()
     {
-        ChangeGameState(GameState.Initialization); 
+        ChangeGameState(GameState.Initialization);
     }
 
     [SerializeField]
@@ -78,22 +81,24 @@ public class MainManager : Singleton<MainManager>
                 baseCardTargetController.gameObject.SetActive(false);
                 baseCardTargetController.ToggleCanUnlockCards(false);
 
-                UIManager.Instance.SetInstructionText("請點擊下一步開始掃描。");
+                UIManager.Instance.SetInstructionText("請點擊下一步開始。");
                 break;
             case GameState.StandByForBaseScan:
                 
                 baseCardTargetController.gameObject.SetActive(true);
-
-                UIManager.Instance.SetInstructionText("請開始掃描基地卡片。");
+                buttonsAdjustBaseSizeObj.SetActive(false);
+                UIManager.Instance.SetInstructionText("請掃描基地卡片。");
                 break;
             case GameState.PostCardScaning:
 
                 baseCardTargetController.ToggleCanUnlockCards(true);
-                UIManager.Instance.SetInstructionText("可以開始掃描解鎖卡片。");
+                buttonsAdjustBaseSizeObj.SetActive(true);
+                UIManager.Instance.SetInstructionText("可以開始掃描解鎖卡片。\n或是點擊解鎖卡片觀看內容！");
                 break;
             case GameState.PlayingVideo:
 
                 baseCardTargetController.ToggleCanUnlockCards(false);
+                UIManager.Instance.SetInstructionText("");
                 break;
         }
         
@@ -103,21 +108,65 @@ public class MainManager : Singleton<MainManager>
     VideoPlayer currentPlayer = null;
     public void StartPlayingVideo(VideoPlayer player)
     {
+        videoDisplayImageObj.SetActive(true); // 顯示撥放影片的UI
+        ChangeGameState(GameState.PlayingVideo);
+
         if (isPlayingContentVideo) {
 
             currentPlayer.Stop();
-            OnContentVideoStop(currentPlayer);
+            // Stop()時會自動呼叫OnContentVideoStop()
         }
 
-        isPlayingContentVideo = true;
-        player.loopPointReached += OnContentVideoStop; // 註冊當撥放結束時的呼叫。
         currentPlayer = player;
+
+        isPlayingContentVideo = true;
+        currentPlayer.loopPointReached += OnContentVideoStop; // 註冊當撥放結束時的呼叫。
+
+        currentPlayer.Play();
     }
 
     void OnContentVideoStop(VideoPlayer player)
     {
+        videoDisplayImageObj.SetActive(false); // 隱藏撥放影片的UI
+        ChangeGameState(GameState.PostCardScaning);
+
         isPlayingContentVideo = false;
         player.loopPointReached -= OnContentVideoStop;
+
+        if (player.targetTexture != null) {
+            player.targetTexture.Release();
+        }
+
         currentPlayer = null;
+    }
+
+    [SerializeField]
+    float baseAdjustmentMultiplier = 0.1f; // 基地大小調整的倍率
+
+    public void AdjustBaseSize(bool bigOrSmall)
+    {
+        if (PostcardBaseTransform == null) {
+            Debug.LogWarning("PostcardBaseTransform is not assigned.");
+            return;
+        }
+
+        // 計算調整的大小
+        float adjustment = bigOrSmall ? baseAdjustmentMultiplier : -baseAdjustmentMultiplier;
+
+        // 確保縮小時不會讓大小變成負值
+        Vector3 newScale = PostcardBaseTransform.localScale + new Vector3(1f, 1f, 1f)*adjustment;
+        
+        // 因為預設縮放是xyz同步的，所以這裡只要確認x。
+        if (newScale.x > 0 ) {
+            PostcardBaseTransform.localScale = newScale;
+
+            UIManager.Instance.DisplayMessage("基地大小已調整！\n" +
+                "目前大小： x" + newScale.x.ToString("F2"));
+        }
+        else {
+
+            UIManager.Instance.DisplayMessage("基地大小不能小於等於0！");
+            Debug.LogWarning("Cannot scale the base to a negative or zero size.");
+        }
     }
 }

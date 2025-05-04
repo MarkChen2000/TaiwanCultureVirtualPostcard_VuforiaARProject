@@ -30,6 +30,12 @@ public class MyTargetImagePrefabBaseController : DefaultObserverEventHandler
     public void ToggleCanUnlockCards(bool enable)
     {
         isTrackingActivated = enable;
+
+        if ( enable) {
+            foreach(PostCardBehaviour postcard in loadedPostcardList) {
+                postcard.OnEnterScanPostcardMode(); // 進入掃描明信片模式
+            }
+        }
     }
 
     public void UnlockPostcard(string postcardID)
@@ -51,10 +57,15 @@ public class MyTargetImagePrefabBaseController : DefaultObserverEventHandler
         }
     }
 
-    public void StarrPlayingViedo(VideoClip clip)
+    public void StartPlayingVideo(VideoClip clip, string subtitleFileName)
     {
         contentDisplayVideoPlayer.clip = clip;
-        contentDisplayVideoPlayer.Play();
+        MainManager.Instance.StartPlayingVideo(contentDisplayVideoPlayer);
+
+        if (subtitleFileName!=null) {
+
+            VideoPlayerSRTSubtitles_TMP.Instance.SetSRTFileName(subtitleFileName);
+        }
     }
 
 }

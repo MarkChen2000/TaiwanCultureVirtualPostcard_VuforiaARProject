@@ -68,4 +68,17 @@ public class UIManager : Singleton<UIManager>
         }
         cg.alpha = end;
     }
+
+    public void ShowCredit()
+    {
+        string credit = 
+            "本專案為南台科大\n" +
+            "XR互動展演設計課程-A組所開發\n" +
+            "錦帛岳 主企劃與副程式\n" +
+            "陳昀辰 主程式\n" +
+            "郭佳齊 主美術\n" +
+            "黃采瞳 副美術\n" +
+            "吳翼汎 副企劃";
+        DisplayMessage(credit);
+    }
 }

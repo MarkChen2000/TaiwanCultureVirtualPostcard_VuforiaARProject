@@ -73,9 +73,6 @@ public class MyTargetImagePrefabController : DefaultObserverEventHandler
 
         // displayObjectAnimator.Play("PostcardAni_Close");
 
-        contentDisplayVideoPlayer.clip = contentDisplayVideoClip;
-        contentDisplayVideoPlayer.Play();
-
         MainManager.Instance.StartPlayingVideo(contentDisplayVideoPlayer);
     }
 
