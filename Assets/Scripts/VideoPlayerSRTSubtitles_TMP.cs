@@ -38,6 +38,13 @@ public class VideoPlayerSRTSubtitles_TMP : Singleton<VideoPlayerSRTSubtitles_TMP
         LoadSRTFile();
     }
 
+    public void ClearSubtitle()
+    {
+        subtitles.Clear();
+        currentSubtitleIndex = 0;
+        subtitleText.text = "";
+    }
+
     void LoadSRTFile()
     {
         StartCoroutine(LoadSRTCoroutine());
@@ -45,10 +52,7 @@ public class VideoPlayerSRTSubtitles_TMP : Singleton<VideoPlayerSRTSubtitles_TMP
 
     IEnumerator LoadSRTCoroutine()
     {
-        // reset
-        subtitles.Clear();
-        currentSubtitleIndex = 0;
-        subtitleText.text = "";
+        ClearSubtitle();
 
         string path = Path.Combine(Application.streamingAssetsPath, srtFileName) + ".srt";
 

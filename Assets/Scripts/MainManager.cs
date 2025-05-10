@@ -24,7 +24,7 @@ public class MainManager : Singleton<MainManager>
     Transform PostcardBaseTransform; // 基地整體的Transform
 
     [SerializeField]
-    GameObject buttonsAdjustBaseSizeObj, videoDisplayImageObj;
+    GameObject buttonsAdjustBaseSizeObj, buttonStopVideoPlayingObj, videoDisplayImageObj;
 
     [SerializeField]
     GameState currentGameState = GameState.Initialization;
@@ -93,12 +93,13 @@ public class MainManager : Singleton<MainManager>
 
                 baseCardTargetController.ToggleCanUnlockCards(true);
                 buttonsAdjustBaseSizeObj.SetActive(true);
-                UIManager.Instance.SetInstructionText("可以開始掃描解鎖卡片。\n或是點擊解鎖卡片觀看內容！");
+                UIManager.Instance.SetInstructionText("可以開始掃描卡片來解鎖。\n或是點擊各個區域觀看影片喔！");
                 break;
             case GameState.PlayingVideo:
 
                 baseCardTargetController.ToggleCanUnlockCards(false);
-                UIManager.Instance.SetInstructionText("");
+                UIManager.Instance.SetInstructionText("正在撥放影片。");
+                buttonStopVideoPlayingObj.SetActive(true);
                 break;
         }
         
@@ -114,15 +115,28 @@ public class MainManager : Singleton<MainManager>
         if (isPlayingContentVideo) {
 
             currentPlayer.Stop();
-            // Stop()時會自動呼叫OnContentVideoStop()
         }
 
         currentPlayer = player;
 
         isPlayingContentVideo = true;
-        currentPlayer.loopPointReached += OnContentVideoStop; // 註冊當撥放結束時的呼叫。
+        currentPlayer.loopPointReached += OnContentVideoStop; // 註冊當撥放結束時的呼叫。注意這是指正常撥放結束
 
         currentPlayer.Play();
+    }
+
+    public void StopVideoPlaying() // 中途停止撥放影片
+    {
+        if ( currentPlayer == null) {
+            Debug.LogWarning("No video player is currently playing.");
+            return;
+        }
+
+        UIManager.Instance.DisplayMessage("已停止撥放影片。");
+
+        currentPlayer.Stop();
+        VideoPlayerSRTSubtitles_TMP.Instance.ClearSubtitle(); // 清除字幕
+        OnContentVideoStop(currentPlayer);
     }
 
     void OnContentVideoStop(VideoPlayer player)
@@ -138,6 +152,7 @@ public class MainManager : Singleton<MainManager>
         }
 
         currentPlayer = null;
+        buttonStopVideoPlayingObj.SetActive(false);
     }
 
     [SerializeField]

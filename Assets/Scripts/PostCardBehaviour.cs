@@ -21,7 +21,7 @@ public class PostCardBehaviour : MonoBehaviour
     Animator animator;
 
     [SerializeField]
-    GameObject contentDisplayTriggerObj; // 觸發物件（掛載Event Trigger）
+    GameObject contentDisplayTriggerObj, contentDisplayFingerPointInstructionUIObj;
 
     [SerializeField]
     UnityEvent OnActivateEvent, OnTriggerEvent;
@@ -48,6 +48,7 @@ public class PostCardBehaviour : MonoBehaviour
     void Start()
     {
         contentDisplayTriggerObj.SetActive(false); // 先關閉觸發物件
+        contentDisplayFingerPointInstructionUIObj.SetActive(false); // 先關閉指示物件
 
         foreach (SpriteRenderer sr in postcardKeyObjectSRList) {
             sr.gameObject.SetActive(false); // 先關閉所有的關鍵物件
@@ -61,7 +62,7 @@ public class PostCardBehaviour : MonoBehaviour
         }
     }
 
-    public void ActivatePostcard()
+    public void ActivatePostcard() // 解鎖
     {
         if (isUnlocked) return; // 如果已經解鎖過了，就不再執行
 
@@ -69,6 +70,8 @@ public class PostCardBehaviour : MonoBehaviour
 
         contentDisplayTriggerObj.SetActive(true); // 啟動可點選觸發的功能
         animator.Play("PostcardAni_Open");
+
+        contentDisplayFingerPointInstructionUIObj.SetActive(true);
 
         Debug.Log("Postcard " + postcardID + " activated.");
 
