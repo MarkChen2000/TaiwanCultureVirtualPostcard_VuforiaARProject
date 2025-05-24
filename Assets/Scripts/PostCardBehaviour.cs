@@ -7,24 +7,27 @@ using UnityEngine.Video;
 
 public class PostCardBehaviour : MonoBehaviour
 {
-    public string postcardID = "";
-
-    bool isUnlocked = false;
+    [Header("References")]
 
     [SerializeField]
     MyTargetImagePrefabBaseController targetImagePrefabBaseController;
 
     [SerializeField]
-    Transform postcardKeyObjectStoreTrans; // 此Transform存放啟動時才會出現的Sprite物件集
+    Transform postcardKeyObjectStoreTrans, // 此Transform存放啟動時才會出現的Sprite物件集
+        contentDisplayCanvasPositionTrans; 
 
     [SerializeField]
     Animator animator;
 
     [SerializeField]
-    GameObject contentDisplayTriggerObj, contentDisplayFingerPointInstructionUIObj;
+    GameObject contentDisplayTriggerObj, 
+        contentDisplayFingerPointInstructionUIObj, 
+        postcardPlaceHintObj;
 
     [SerializeField]
     UnityEvent OnActivateEvent, OnTriggerEvent;
+
+    public string postcardID = "";
 
     [SerializeField]
     VideoClip contentDisplayVideoClip; // 展示的影片
@@ -32,10 +35,12 @@ public class PostCardBehaviour : MonoBehaviour
     [SerializeField]
     string contentDisplaySRTFileName = ""; // 展示的字幕檔案名稱
 
-    List<SpriteRenderer> postcardKeyObjectSRList = new List<SpriteRenderer>(); // 儲存所有的關鍵物件SpriteRenderer
-
     [SerializeField]
     bool DEBUG_UnlockPostcard = false; // 用來測試是否可以解鎖明信片的開關
+
+    bool isUnlocked = false;
+
+    List<SpriteRenderer> postcardKeyObjectSRList = new List<SpriteRenderer>(); // 儲存所有的關鍵物件SpriteRenderer
 
     void Awake()
     {
@@ -57,21 +62,24 @@ public class PostCardBehaviour : MonoBehaviour
 
     public void OnEnterScanPostcardMode()
     {
+#if UNITY_EDITOR
         if (DEBUG_UnlockPostcard) {
             targetImagePrefabBaseController.UnlockPostcard(postcardID); // 如果是Debug模式，就直接解鎖
         }
+#endif
     }
 
     public void ActivatePostcard() // 解鎖
     {
-        if (isUnlocked) return; // 如果已經解鎖過了，就不再執行
+        if (isUnlocked) return; 
 
         isUnlocked = true;
 
-        contentDisplayTriggerObj.SetActive(true); // 啟動可點選觸發的功能
+        contentDisplayTriggerObj.SetActive(true); 
         animator.Play("PostcardAni_Open");
 
         contentDisplayFingerPointInstructionUIObj.SetActive(true);
+        postcardPlaceHintObj.SetActive(false); 
 
         Debug.Log("Postcard " + postcardID + " activated.");
 
@@ -85,12 +93,16 @@ public class PostCardBehaviour : MonoBehaviour
         Debug.Log("Triggered display object activation.");
         OnTriggerEvent?.Invoke();
 
+        if ( MainManager.Instance.IsDisplayVideoBehindEveryPostcard ) {
+            MainManager.Instance.SetContentDisplayCanvasObjTo(contentDisplayCanvasPositionTrans);
+        }
+
         targetImagePrefabBaseController.StartPlayingVideo(contentDisplayVideoClip, contentDisplaySRTFileName);
     }
 
     void RamdomlyFadeInKeyObjectOneByOne()
     {
-        StartCoroutine(FadeInKeyObjectsCoroutine(1f,0.1f));
+        StartCoroutine(FadeInKeyObjectsCoroutine(0.5f,0f));
     }
 
     IEnumerator FadeInKeyObjectsCoroutine(float fadeDuration, float WaitTime)

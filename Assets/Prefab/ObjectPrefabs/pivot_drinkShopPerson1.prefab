@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2723262617971841533}
+  - component: {fileID: -5786252732819156326}
   m_Layer: 0
   m_Name: pivot_drinkShopPerson1
   m_TagString: Untagged
@@ -116,3 +117,19 @@ Transform:
   - {fileID: 5708514389542838204}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5786252732819156326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7754159281946019892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98b6f69fd5ab9a49a93b25e5289838d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDelay: 1
+  maxDelay: 3
+  jumpHeight: 0.5
+  jumpDuration: 0.5

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5201528975728272793}
+  - component: {fileID: -9102176912325411970}
   m_Layer: 0
   m_Name: pivot_mainMotor
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 2471059525321960282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-9102176912325411970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6280806907160053038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a98b6f69fd5ab9a49a93b25e5289838d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDelay: 1
+  maxDelay: 3
+  jumpHeight: 0.5
+  jumpDuration: 0.5
 --- !u!1 &6816946578885562799
 GameObject:
   m_ObjectHideFlags: 0

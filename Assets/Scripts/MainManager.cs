@@ -14,6 +14,8 @@ public enum GameState
 
 public class MainManager : Singleton<MainManager>
 {
+    [Header("References")]
+
     [SerializeField]
     VuforiaBehaviour vuforiaBehaviour;
 
@@ -21,13 +23,22 @@ public class MainManager : Singleton<MainManager>
     MyTargetImagePrefabBaseController baseCardTargetController;
 
     [SerializeField]
-    Transform PostcardBaseTransform; // 基地整體的Transform
+    Transform PostcardBaseTransform, // 基地整體的Transform
+        contentDisplayCanvasObjTrans; 
 
     [SerializeField]
     GameObject buttonsAdjustBaseSizeObj, buttonStopVideoPlayingObj, videoDisplayImageObj;
 
     [SerializeField]
+    Animator instructionTextAnimator;
+
+    [Header("Configuration")]
+
+    [SerializeField]
     GameState currentGameState = GameState.Initialization;
+
+    [SerializeField]
+    public bool IsDisplayVideoBehindEveryPostcard = true;
 
     bool isPlayingContentVideo = false;
 
@@ -81,12 +92,18 @@ public class MainManager : Singleton<MainManager>
                 baseCardTargetController.gameObject.SetActive(false);
                 baseCardTargetController.ToggleCanUnlockCards(false);
 
-                UIManager.Instance.SetInstructionText("請點擊下一步開始。");
+                instructionTextAnimator.Play("InstructionTextFlipVertialToHorizonal");
+
+                UIManager.Instance.SetInstructionText("橫向使用裝置以獲得更好體驗！" +
+                    "\n完成後請點擊下一步繼續。");
                 break;
             case GameState.StandByForBaseScan:
                 
                 baseCardTargetController.gameObject.SetActive(true);
                 buttonsAdjustBaseSizeObj.SetActive(false);
+
+                instructionTextAnimator.Play("InstructionTextIdle");
+
                 UIManager.Instance.SetInstructionText("請掃描基地卡片。");
                 break;
             case GameState.PostCardScaning:
@@ -183,5 +200,12 @@ public class MainManager : Singleton<MainManager>
             UIManager.Instance.DisplayMessage("基地大小不能小於等於0！");
             Debug.LogWarning("Cannot scale the base to a negative or zero size.");
         }
+    }
+
+    public void SetContentDisplayCanvasObjTo(Transform parentTranform)
+    {
+        contentDisplayCanvasObjTrans.SetParent(parentTranform);
+        contentDisplayCanvasObjTrans.localPosition = Vector3.zero;
+        contentDisplayCanvasObjTrans.localRotation = Quaternion.identity;
     }
 }
