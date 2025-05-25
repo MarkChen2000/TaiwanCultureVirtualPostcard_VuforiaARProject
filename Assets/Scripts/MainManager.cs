@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Video;
 using Vuforia;
 
@@ -51,6 +52,8 @@ public class MainManager : Singleton<MainManager>
             
             // Initialize.
         }*/
+
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
 
     private void Start()
@@ -85,38 +88,51 @@ public class MainManager : Singleton<MainManager>
                 break;
         }*/
 
-        // 進入
-        switch ( nextState) {
-            case GameState.Initialization:
+        string resultText = string.Empty;
 
+        // 進入
+        switch (nextState) {
+            case GameState.Initialization: 
                 baseCardTargetController.gameObject.SetActive(false);
                 baseCardTargetController.ToggleCanUnlockCards(false);
 
                 instructionTextAnimator.Play("InstructionTextFlipVertialToHorizonal");
 
-                UIManager.Instance.SetInstructionText("橫向使用裝置以獲得更好體驗！" +
-                    "\n完成後請點擊下一步繼續。");
+                resultText =
+                    GetLocalizationResult("UITable", "InstructionText_StateInitialization");
+
+                UIManager.Instance.SetInstructionText(resultText);
                 break;
-            case GameState.StandByForBaseScan:
-                
+            case GameState.StandByForBaseScan: 
                 baseCardTargetController.gameObject.SetActive(true);
                 buttonsAdjustBaseSizeObj.SetActive(false);
 
                 instructionTextAnimator.Play("InstructionTextIdle");
 
-                UIManager.Instance.SetInstructionText("請掃描基地卡片。");
+                resultText =
+                    GetLocalizationResult("UITable", "InstructionText_StandByForBaseScan");
+
+                UIManager.Instance.SetInstructionText(resultText);
                 break;
             case GameState.PostCardScaning:
 
                 baseCardTargetController.ToggleCanUnlockCards(true);
                 buttonsAdjustBaseSizeObj.SetActive(true);
-                UIManager.Instance.SetInstructionText("可以開始掃描卡片來解鎖。\n或是點擊各個區域觀看影片喔！");
+
+                resultText =
+                    GetLocalizationResult("UITable", "InstructionText_PostcardScaning");
+
+                UIManager.Instance.SetInstructionText(resultText);
                 break;
             case GameState.PlayingVideo:
 
                 baseCardTargetController.ToggleCanUnlockCards(false);
-                UIManager.Instance.SetInstructionText("正在撥放影片。");
                 buttonStopVideoPlayingObj.SetActive(true);
+
+                resultText =
+                    GetLocalizationResult("UITable", "InstructionText_PlayingVideo");
+
+                UIManager.Instance.SetInstructionText(resultText);
                 break;
         }
         
@@ -149,7 +165,9 @@ public class MainManager : Singleton<MainManager>
             return;
         }
 
-        UIManager.Instance.DisplayMessage("已停止撥放影片。");
+        string resultText =
+                    GetLocalizationResult("UITable", "InstructionText_VideoStopped");
+        UIManager.Instance.DisplayMessage(resultText);
 
         currentPlayer.Stop();
         VideoPlayerSRTSubtitles_TMP.Instance.ClearSubtitle(); // 清除字幕
@@ -192,12 +210,16 @@ public class MainManager : Singleton<MainManager>
         if (newScale.x > 0 ) {
             PostcardBaseTransform.localScale = newScale;
 
-            UIManager.Instance.DisplayMessage("基地大小已調整！\n" +
-                "目前大小： x" + newScale.x.ToString("F2"));
+            string resultText =
+                    GetLocalizationResult("UITable", "InstructionText_SizeAdjusted");
+            UIManager.Instance.DisplayMessage(resultText + newScale.x.ToString("F2"));
         }
         else {
 
-            UIManager.Instance.DisplayMessage("基地大小不能小於等於0！");
+            string resultText =
+                    GetLocalizationResult("UITable", "InstructionText_SizeAdjustedFailed");
+            UIManager.Instance.DisplayMessage(resultText);
+
             Debug.LogWarning("Cannot scale the base to a negative or zero size.");
         }
     }
@@ -208,4 +230,15 @@ public class MainManager : Singleton<MainManager>
         contentDisplayCanvasObjTrans.localPosition = Vector3.zero;
         contentDisplayCanvasObjTrans.localRotation = Quaternion.identity;
     }
+
+    string GetLocalizationResult(string tableName, string tableEntry)
+    {
+        // 注意！ 此方法未考慮到table尚在加載，或是正在初始化的可能，
+        // 所以以後若是改為可以動態更改語言，這樣勢必是不夠的。
+        var result = LocalizationSettings.StringDatabase.
+            GetTableEntry(tableName, tableEntry);
+        return result.Entry.GetLocalizedString();
+    }
+
+
 }

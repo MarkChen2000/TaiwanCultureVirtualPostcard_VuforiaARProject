@@ -23,6 +23,46 @@ MonoBehaviour:
     m_Key: UI_IntroScene_InstructionText
     m_Metadata:
       m_Items: []
+  - m_Id: 205374983270400
+    m_Key: InstructionText_StateInitialization
+    m_Metadata:
+      m_Items: []
+  - m_Id: 208046318710784
+    m_Key: InstructionText_StandByForBaseScan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 208151696404480
+    m_Key: InstructionText_PostcardScaning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 208321968369664
+    m_Key: InstructionText_PlayingVideo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 218569034723328
+    m_Key: UI_MainScene_ButtonEnterScan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 218737545080832
+    m_Key: UI_MainScene_ButtonStopVideo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 219028906602496
+    m_Key: UI_MainScene_ButtonAdjustSize
+    m_Metadata:
+      m_Items: []
+  - m_Id: 219862562271232
+    m_Key: InstructionText_VideoStopped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 220413685428224
+    m_Key: InstructionText_SizeAdjusted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 220894533021696
+    m_Key: InstructionText_SizeAdjustedFailed
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

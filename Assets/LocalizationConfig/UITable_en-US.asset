@@ -23,7 +23,55 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 301342683136
-    m_Localized: Touch to enter
+    m_Localized: Tap to Enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 205374983270400
+    m_Localized: 'Rotate your device horizontally for a better experience!
+
+      When
+      you''re ready, tap ''Next'' to begin scanning.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 208046318710784
+    m_Localized: Please scan the base card.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 208151696404480
+    m_Localized: 'You can start scanning cards to unlock content,
+
+      or tap on
+      different areas to watch the videos!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 208321968369664
+    m_Localized: Video is now playing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 218569034723328
+    m_Localized: Next step
+    m_Metadata:
+      m_Items: []
+  - m_Id: 218737545080832
+    m_Localized: Stop playing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 219028906602496
+    m_Localized: Adjust size
+    m_Metadata:
+      m_Items: []
+  - m_Id: 219862562271232
+    m_Localized: The video has stopped playing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 220413685428224
+    m_Localized: 'Base size has been adjusted!
+
+      Currently size is : x'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 220894533021696
+    m_Localized: Can not set size as 0!
     m_Metadata:
       m_Items: []
   references:
