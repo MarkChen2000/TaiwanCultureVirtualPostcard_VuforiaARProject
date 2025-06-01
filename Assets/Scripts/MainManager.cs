@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Video;
 using Vuforia;
@@ -119,6 +120,8 @@ public class MainManager : Singleton<MainManager>
                 baseCardTargetController.ToggleCanUnlockCards(true);
                 buttonsAdjustBaseSizeObj.SetActive(true);
 
+                AudioManager.Instance.SetPostcardBGAudioVolume(- 20f);
+
                 resultText =
                     GetLocalizationResult("UITable", "InstructionText_PostcardScaning");
 
@@ -128,6 +131,8 @@ public class MainManager : Singleton<MainManager>
 
                 baseCardTargetController.ToggleCanUnlockCards(false);
                 buttonStopVideoPlayingObj.SetActive(true);
+
+                AudioManager.Instance.SetPostcardBGAudioVolume(-80f);
 
                 resultText =
                     GetLocalizationResult("UITable", "InstructionText_PlayingVideo");

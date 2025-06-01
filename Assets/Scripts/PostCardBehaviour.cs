@@ -25,6 +25,9 @@ public class PostCardBehaviour : MonoBehaviour
         postcardPlaceHintObj;
 
     [SerializeField]
+    AudioSource audioSource_BG;
+
+    [SerializeField]
     UnityEvent OnActivateEvent, OnTriggerEvent;
 
     public string postcardID = "";
@@ -55,6 +58,8 @@ public class PostCardBehaviour : MonoBehaviour
         contentDisplayTriggerObj.SetActive(false); // 先關閉觸發物件
         contentDisplayFingerPointInstructionUIObj.SetActive(false); // 先關閉指示物件
 
+        audioSource_BG.gameObject.SetActive(false); // 先關閉背景
+
         foreach (SpriteRenderer sr in postcardKeyObjectSRList) {
             sr.gameObject.SetActive(false); // 先關閉所有的關鍵物件
         }
@@ -79,7 +84,10 @@ public class PostCardBehaviour : MonoBehaviour
         animator.Play("PostcardAni_Open");
 
         contentDisplayFingerPointInstructionUIObj.SetActive(true);
-        postcardPlaceHintObj.SetActive(false); 
+        postcardPlaceHintObj.SetActive(false);
+
+        audioSource_BG.gameObject.SetActive(true);
+        audioSource_BG.Play();
 
         Debug.Log("Postcard " + postcardID + " activated.");
 
