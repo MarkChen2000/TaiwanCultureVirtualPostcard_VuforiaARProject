@@ -59,6 +59,8 @@ public class MainManager : Singleton<MainManager>
 
     private void Start()
     {
+        videoDisplayImageObj.SetActive(false); // 隱藏撥放影片的UI
+
         ChangeGameState(GameState.Initialization);
     }
 

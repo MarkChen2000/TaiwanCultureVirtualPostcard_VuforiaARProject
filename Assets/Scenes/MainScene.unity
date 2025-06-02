@@ -3488,6 +3488,18 @@ MonoBehaviour:
           m_StringArgument: "\u606D\u559C\u89E3\u9396\u5361\u7247\uFF1A\u624B\u6416\u98F2\u6599\u5E97\uFF01"
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 890410382}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayOneShotAudioByID
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: unlock
+          m_BoolArgument: 0
+        m_CallState: 2
   OnTriggerEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5608,6 +5620,18 @@ MonoBehaviour:
           m_StringArgument: "\u606D\u559C\u89E3\u9396\u5361\u7247\uFF1A\u6469\u6258\u8ECA\uFF01"
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 890410382}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayOneShotAudioByID
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: unlock
+          m_BoolArgument: 0
+        m_CallState: 2
   OnTriggerEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5699,6 +5723,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: "\u606D\u559C\u89E3\u9396\u5361\u7247\uFF1A\u5783\u573E\u8ECA\uFF01"
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 890410382}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayOneShotAudioByID
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: unlock
           m_BoolArgument: 0
         m_CallState: 2
   OnTriggerEvent:
@@ -7317,6 +7353,18 @@ MonoBehaviour:
           m_StringArgument: "\u606D\u559C\u89E3\u9396\u5361\u7247\uFF1A\u4FBF\u5229\u5546\u5E97\uFF01"
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 890410382}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayOneShotAudioByID
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: unlock
+          m_BoolArgument: 0
+        m_CallState: 2
   OnTriggerEvent:
     m_PersistentCalls:
       m_Calls:
@@ -7336,7 +7384,7 @@ MonoBehaviour:
   contentDisplayVideoClip: {fileID: 32900000, guid: 1967f2039c748c0419a45686ece2393e,
     type: 3}
   contentDisplaySRTFileName: "\u4FBF\u5229\u5546\u5E97 2.0"
-  DEBUG_UnlockPostcard: 0
+  DEBUG_UnlockPostcard: 1
 --- !u!1 &890410377
 GameObject:
   m_ObjectHideFlags: 0
@@ -10681,6 +10729,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: "\u606D\u559C\u89E3\u9396\u5361\u7247\uFF1A\u591C\u5E02\uFF01"
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 890410382}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayOneShotAudioByID
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: unlock
           m_BoolArgument: 0
         m_CallState: 2
   OnTriggerEvent:

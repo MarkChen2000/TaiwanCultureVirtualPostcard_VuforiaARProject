@@ -48,7 +48,13 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: bd507a4c005b762419e9778247385f68
+    name: MasterAudioVolume
+  - guid: 8422157f722e637429c3020672b0869a
+    name: PostcardBGAudioVolume
+  - guid: dda8c52a207eae74085d4884a2acd703
+    name: UIAudioVolume
   m_AudioMixerGroupViews:
   - guids:
     - 4e6179f12f3d4d442a4e366fb8a32bc8
@@ -103,8 +109,8 @@ AudioMixerSnapshotController:
   m_SnapshotID: ebe1c00b85b7a9c46a0414ea2d1c747a
   m_FloatValues:
     dda8c52a207eae74085d4884a2acd703: -10.002743
-    bd507a4c005b762419e9778247385f68: 0.22101271
-    8422157f722e637429c3020672b0869a: -19.928478
+    bd507a4c005b762419e9778247385f68: 0
+    8422157f722e637429c3020672b0869a: -9.999996
   m_TransitionOverrides: {}
 --- !u!243 &961631180551795517
 AudioMixerGroupController:

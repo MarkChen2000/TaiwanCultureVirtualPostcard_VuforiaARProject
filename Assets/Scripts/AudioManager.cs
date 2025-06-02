@@ -26,7 +26,7 @@ public class AudioManager : Singleton<AudioManager>
     public void SetPostcardBGAudioVolume(float volume)
     {
         // 設定明信片背景音樂的音量
-        audioMixer_Master.SetFloat("PostcardBGAudio", volume);
+        audioMixer_Master.SetFloat("PostcardBGAudioVolume", volume);
     }
 
     public void PlayOneShotAudioByID(string audioID)
