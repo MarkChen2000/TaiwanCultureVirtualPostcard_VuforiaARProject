@@ -8,9 +8,6 @@ public class MyTargetImagePrefabBaseController : DefaultObserverEventHandler
     [SerializeField]
     List<PostCardBehaviour> loadedPostcardList = new List<PostCardBehaviour>();
 
-    [SerializeField]
-    VideoPlayer contentDisplayVideoPlayer; // 展示影片撥放器元件
-
     bool isTrackingActivated = false; // 要等待基地卡片被掃描到才開始可以解鎖其中的卡片
 
     protected override void OnTrackingFound()
@@ -56,16 +53,4 @@ public class MyTargetImagePrefabBaseController : DefaultObserverEventHandler
             Debug.LogWarning("Postcard with ID " + postcardID + " not found.");
         }
     }
-
-    public void StartPlayingVideo(VideoClip clip, string subtitleFileName)
-    {
-        contentDisplayVideoPlayer.clip = clip;
-        MainManager.Instance.StartPlayingVideo(contentDisplayVideoPlayer);
-
-        if (subtitleFileName!=null) {
-
-            VideoPlayerSRTSubtitles_TMP.Instance.SetSRTFileName(subtitleFileName);
-        }
-    }
-
 }

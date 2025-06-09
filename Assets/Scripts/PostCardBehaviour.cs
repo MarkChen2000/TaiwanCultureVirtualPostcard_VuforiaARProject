@@ -21,8 +21,10 @@ public class PostCardBehaviour : MonoBehaviour
 
     [SerializeField]
     GameObject contentDisplayTriggerObj, 
-        contentDisplayFingerPointInstructionUIObj, 
         postcardPlaceHintObj;
+
+    [SerializeField]
+    public GameObject contentDisplayFingerPointInstructionUIObj;
 
     [SerializeField]
     AudioSource audioSource_BG;
@@ -105,7 +107,8 @@ public class PostCardBehaviour : MonoBehaviour
             MainManager.Instance.SetContentDisplayCanvasObjTo(contentDisplayCanvasPositionTrans);
         }
 
-        targetImagePrefabBaseController.StartPlayingVideo(contentDisplayVideoClip, contentDisplaySRTFileName);
+        MainManager.Instance.StartPlayingVideoFromBehaviour
+            (contentDisplayVideoClip, contentDisplaySRTFileName, this);
     }
 
     void RamdomlyFadeInKeyObjectOneByOne()

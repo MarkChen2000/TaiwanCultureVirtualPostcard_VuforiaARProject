@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig>
   <Tracking>
+    <ImageTarget name="ar_logobase_new" size="1.000000 0.844828" />
     <ImageTarget name="postcard_5_nightMarket" size="1.000000 0.579755" />
     <ImageTarget name="postcard_4_drinkShop" size="1.000000 0.580012" />
     <ImageTarget name="logo" size="1.000000 1.000000" />
     <ImageTarget name="postcard_1_garbageTruck" size="1.000000 0.579755" />
     <ImageTarget name="postcard_3_motorbike" size="1.000000 0.580012" />
     <ImageTarget name="postcard_2_convenienceStore" size="1.000000 0.580012" />
-    <ImageTarget name="target_Postcard1" size="1.000000 0.579755" />
-    <ImageTarget name="testTargetImage_Postcard4" size="1.000000 1.375527" />
-    <ImageTarget name="testTargetImage_Postcard2" size="1.000000 1.248945" />
-    <ImageTarget name="testTargetImage_PostCard3" size="1.000000 1.400844" />
-    <ImageTarget name="testTargetImage_Postcard" size="1.000000 1.327004" />
   </Tracking>
 </QCARConfig>

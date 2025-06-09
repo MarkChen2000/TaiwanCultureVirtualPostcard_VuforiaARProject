@@ -25,6 +25,9 @@ public class MainManager : Singleton<MainManager>
     MyTargetImagePrefabBaseController baseCardTargetController;
 
     [SerializeField]
+    VideoPlayer contentDisplayVideoPlayer; // 展示影片撥放器元件
+
+    [SerializeField]
     Transform PostcardBaseTransform, // 基地整體的Transform
         contentDisplayCanvasObjTrans; 
 
@@ -41,8 +44,6 @@ public class MainManager : Singleton<MainManager>
 
     [SerializeField]
     public bool IsDisplayVideoBehindEveryPostcard = true;
-
-    bool isPlayingContentVideo = false;
 
     void Awake()
     {
@@ -146,55 +147,63 @@ public class MainManager : Singleton<MainManager>
         currentGameState = nextState;
     }
 
-    VideoPlayer currentPlayer = null;
-    public void StartPlayingVideo(VideoPlayer player)
+    PostCardBehaviour currentPlayingPostCardBehaviour = null;
+    public void StartPlayingVideoFromBehaviour(VideoClip clip, string subtitleFileName, PostCardBehaviour behaviour)
     {
+        //Debug.Log(":-1");
+        if (contentDisplayVideoPlayer.isPlaying) {
+
+            StopVideoPlaying(false);
+        }
+
         videoDisplayImageObj.SetActive(true); // 顯示撥放影片的UI
         ChangeGameState(GameState.PlayingVideo);
 
-        if (isPlayingContentVideo) {
+        contentDisplayVideoPlayer.clip = clip;
+        if (subtitleFileName != null) VideoPlayerSRTSubtitles_TMP.Instance.SetSRTFileName(subtitleFileName);
+        currentPlayingPostCardBehaviour = behaviour;
+        currentPlayingPostCardBehaviour.contentDisplayFingerPointInstructionUIObj.SetActive(false);
 
-            currentPlayer.Stop();
-        }
+        contentDisplayVideoPlayer.loopPointReached += OnContentVideoStop; // 註冊當撥放結束時的呼叫。注意這是指正常撥放結束
 
-        currentPlayer = player;
-
-        isPlayingContentVideo = true;
-        currentPlayer.loopPointReached += OnContentVideoStop; // 註冊當撥放結束時的呼叫。注意這是指正常撥放結束
-
-        currentPlayer.Play();
+        contentDisplayVideoPlayer.Play();
     }
 
-    public void StopVideoPlaying() // 中途停止撥放影片
+    public void StopVideoPlaying(bool isShowInstructionText) // 中途停止撥放影片
     {
-        if ( currentPlayer == null) {
+        //Debug.Log(":0");
+        if (contentDisplayVideoPlayer == null) {
             Debug.LogWarning("No video player is currently playing.");
             return;
         }
 
-        string resultText =
-                    GetLocalizationResult("UITable", "InstructionText_VideoStopped");
-        UIManager.Instance.DisplayMessage(resultText);
+        if (isShowInstructionText) {
+            string resultText = GetLocalizationResult
+                ("UITable", "InstructionText_VideoStopped");
+            UIManager.Instance.DisplayMessage(resultText);
+        }
 
-        currentPlayer.Stop();
+        contentDisplayVideoPlayer.Stop();
         VideoPlayerSRTSubtitles_TMP.Instance.ClearSubtitle(); // 清除字幕
-        OnContentVideoStop(currentPlayer);
+        OnContentVideoStop(contentDisplayVideoPlayer);
     }
 
-    void OnContentVideoStop(VideoPlayer player)
+    void OnContentVideoStop(VideoPlayer player) // 未中斷的情況下，影片結束撥放時所呼叫
     {
+        //Debug.Log(":1");
         videoDisplayImageObj.SetActive(false); // 隱藏撥放影片的UI
         ChangeGameState(GameState.PostCardScaning);
 
-        isPlayingContentVideo = false;
         player.loopPointReached -= OnContentVideoStop;
 
         if (player.targetTexture != null) {
             player.targetTexture.Release();
         }
 
-        currentPlayer = null;
         buttonStopVideoPlayingObj.SetActive(false);
+
+        currentPlayingPostCardBehaviour.contentDisplayFingerPointInstructionUIObj.SetActive(true);
+        currentPlayingPostCardBehaviour = null;
     }
 
     [SerializeField]

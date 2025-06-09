@@ -34,7 +34,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 208046318710784
-    m_Localized: Please scan the base card.
+    m_Localized: Please scan the base card<sprite index=0>.
     m_Metadata:
       m_Items: []
   - m_Id: 208151696404480

@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 208046318710784
-    m_Localized: "\u8ACB\u6383\u63CF\u57FA\u5730\u5361\u7247\u3002"
+    m_Localized: "\u8ACB\u6383\u63CF\u57FA\u5730\u5361\u7247<sprite index=0>\u3002"
     m_Metadata:
       m_Items: []
   - m_Id: 208151696404480
